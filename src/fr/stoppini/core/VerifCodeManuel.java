@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class VerifCodeManuel {
-    private String code = " ";
+    private String code = "";
     private int nombreEssais = 4;
-    private String prop = " ";
+    private String prop = "";
     private List<String> userFeedback = new ArrayList<String>();
     private boolean runCode = true;
+    private boolean tryCatch = false;
 
     public VerifCodeManuel() {
 
@@ -24,12 +25,18 @@ public class VerifCodeManuel {
         do {
             for (int i = 1; i < nombreEssais + 1; i++) {
                 tryAndCatch(i);
-                userFeedback.clear(); //  clear userFeedback en début d'instance afin de pouvoir l'utiliser tout le temps.
-                implementUserFeedback();
-                verifyUserFeedBack();
-                if (runCode == false || i == 4) {
-                    runCode = false;
-                    break;
+                if (tryCatch == false) {
+
+                    userFeedback.clear(); //  clear userFeedback en début d'instance afin de pouvoir l'utiliser tout le temps.
+                    implementUserFeedback();
+                    verifyUserFeedBack();
+                    if (runCode == false || i == 4) {
+                        runCode = false;
+                        break;
+                    }
+                } else {
+                    tryCatch =false;
+                    i--;
                 }
             }
         } while (runCode == true);
@@ -45,8 +52,12 @@ public class VerifCodeManuel {
         Scanner sc = new Scanner(System.in);
         System.out.println("Vous devez cracker un code long de " + "4" + " caractères.\nNombre d'essais : " + i + "/" + nombreEssais + ".");
         prop = sc.nextLine();
-        if (prop.length() != code.length() - 1 || prop.matches("[^0-9]")) {
+       if (prop.length() != code.length() ) {
             System.out.println("Erreur de contenu. Veuillez effectuer une nouvelle saisie.");
+            tryCatch = true;
+        }else if (prop.matches("[^0-9]")) {
+            System.out.println("Erreur de contenu. Veuillez effectuer une nouvelle saisie.");
+            tryCatch = true;
         }
     }
 
@@ -57,9 +68,9 @@ public class VerifCodeManuel {
     */
     public void implementUserFeedback() {
         while (true) {
-            for (int i = 1; i < prop.length() + 1; i++) {
+            for (int i = 0; i < prop.length(); i++) {
 
-                Character p = prop.charAt(i - 1);
+                Character p = prop.charAt(i);
                 Character c = code.charAt(i);
                 //System.out.println("Prop : "+p+"\nCode : "+c);
                 if (p.equals(c)) {
