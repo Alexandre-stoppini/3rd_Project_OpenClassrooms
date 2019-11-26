@@ -13,7 +13,7 @@ public class VerifCodeManuel {
 
     public VerifCodeManuel() {
 
-        GenerationAuto generationAuto = new GenerationAuto();
+        GenerationCodeAuto generationAuto = new GenerationCodeAuto();
         System.out.println(generationAuto.getCode());
         code = generationAuto.getCode();
         initVerifCodeManuel();
