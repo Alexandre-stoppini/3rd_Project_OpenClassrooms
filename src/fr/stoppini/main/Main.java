@@ -1,10 +1,10 @@
 package fr.stoppini.main;
 
-import fr.stoppini.core.VerifCodeManuel;
+import fr.stoppini.core.Game;
+
 
 public class Main {
     public static void main(String[] args) {
-        VerifCodeManuel myst = new VerifCodeManuel();
-
+        Game game = new Game();
     }
 }
