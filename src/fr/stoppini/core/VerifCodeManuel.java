@@ -1,16 +1,20 @@
 package fr.stoppini.core;
 
+import fr.stoppini.get_prop.SimiliGetPropValues;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class VerifCodeManuel {
     private String code = "";
-    private int nombreEssais = 4;
     private String prop = "";
     private List<String> userFeedback = new ArrayList<String>();
     private boolean runCode = true;
     private boolean tryCatch = false;
+    SimiliGetPropValues similiGetPropValues = new SimiliGetPropValues();
+    private int nombreEssais = Integer.parseInt(similiGetPropValues.getNombreEssais());
+
 
     public VerifCodeManuel() {
 
@@ -28,6 +32,7 @@ public class VerifCodeManuel {
                 if (tryCatch == false) {
 
                     userFeedback.clear(); //  clear userFeedback en début d'instance afin de pouvoir l'utiliser tout le temps.
+                    lastWord(i);
                     implementUserFeedback();
                     verifyUserFeedBack();
                     if (runCode == false || i == 4) {
@@ -108,6 +113,12 @@ public class VerifCodeManuel {
                 System.out.println("Gagné !!!\nLe code était bien " + code);
                 runCode = false;
             }
+        }
+    }
+
+    public void lastWord(int i){
+        if (i==nombreEssais-1){
+            System.out.println("Ceci est votre dernier essai.");
         }
     }
 }

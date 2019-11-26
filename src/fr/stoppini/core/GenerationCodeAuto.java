@@ -1,7 +1,7 @@
 package fr.stoppini.core;
 
 public class GenerationCodeAuto {
-    private String code = " ";
+    private String code = "";
     private double X;
 
     public GenerationCodeAuto() {
