@@ -1,4 +1,5 @@
 package fr.stoppini.test;
 
-public class Test {
+public class TestMain {
+
 }

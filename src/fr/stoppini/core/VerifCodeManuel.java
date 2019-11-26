@@ -13,9 +13,9 @@ public class VerifCodeManuel {
 
     public VerifCodeManuel() {
 
-        GenerationAuto myst = new GenerationAuto();
-        System.out.println(myst.getCode());
-        code = myst.getCode();
+        GenerationAuto generationAuto = new GenerationAuto();
+        System.out.println(generationAuto.getCode());
+        code = generationAuto.getCode();
         initVerifCodeManuel();
 
     }
@@ -40,6 +40,7 @@ public class VerifCodeManuel {
     * Il ne doit pas pouvoir rentrer de non-digit ou alors entrer un autre nombre d'input que demandé.
     @param i prend pour paramètre i de la boucle ci dessus.
      */
+
     public void tryAndCatch(int i) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Vous devez cracker un code long de " + "4" + " caractères.\nNombre d'essais : " + i + "/" + nombreEssais + ".");
