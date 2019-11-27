@@ -81,8 +81,8 @@ public class VerifCodeManuel {
         while (true) {
             for (int i = 0; i < prop.length(); i++) {
 
-                Character p = prop.charAt(i);
-                Character c = code.charAt(i);
+                Character p = prop.charAt(i); // crée un char "p" qui prend la valeur de la i-ème valeur de prop
+                Character c = code.charAt(i); // crée même chose
                 //System.out.println("Prop : "+p+"\nCode : "+c);
                 if (p.equals(c)) {
                     //System.out.println(p.equals(c));

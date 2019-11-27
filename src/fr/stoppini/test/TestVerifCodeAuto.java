@@ -9,21 +9,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestVerifCodeAuto {
-    private String prop = " ";
-    private List<String> userFeedback = new ArrayList<String>();
-    private boolean runCode = true;
-    GenerationCodeManuel generationCodeManuel = new GenerationCodeManuel();
-    private String code = generationCodeManuel.getCodeManuel();
 
-    SimiliGetPropValues similiGetPropValues = new SimiliGetPropValues();
-    private int nombreEssais = Integer.parseInt(similiGetPropValues.getNombreEssais());
+    	/*for (int i = 0; i < code.size(); i++) { // Vérifie les conditions d'égalité entre Prop[i] et Code [i]
+        int iMin = 0;
+        int iMax = 10;
+        prop[i] = (iMax - iMin) / 2 + iMin;
+        System.out.println("Prop[" + i + "] : " + prop[i] + "    iMax = " + iMax + "    iMin = " + iMin);
 
+        do {
+            if (prop[i] < code.get(i)) {
+                iMin = prop[i]++;
+                prop[i] = (iMax - iMin) / 2 + iMin;
+                System.out.println(
+                        "Prop[" + i + "] (P<C) : " + prop[i] + "    iMax = " + iMax + "    iMin = " + iMin);
+            } else if (prop[i] > code.get(i)) {
+                iMax = prop[i]--;
+                prop[i] = (iMax - iMin) / 2 + iMin;
+                System.out.println(
+                        "Prop[" + i + "] (P>C) : " + prop[i] + "    iMax = " + iMax + "    iMin = " + iMin);
+            } else if (prop[i] == code.get(i)) {
+                System.out.println("Le code à l'itération " + i + " est : " + prop[i]);
+                break;
+            }
 
-    public TestVerifCodeAuto(){
+        } while (true);
+        propStr[i] = String.valueOf(prop[i]);
+    }*/
 
-        System.out.println("nombreEssais : " + nombreEssais);
-        System.out.println("code : " + code);
-
-
-    }
 }
