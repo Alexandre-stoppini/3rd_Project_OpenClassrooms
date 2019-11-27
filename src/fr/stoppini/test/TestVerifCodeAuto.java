@@ -21,6 +21,9 @@ public class TestVerifCodeAuto {
 
     public TestVerifCodeAuto(){
 
+        System.out.println("nombreEssais : " + nombreEssais);
+        System.out.println("code : " + code);
+
 
     }
 }
