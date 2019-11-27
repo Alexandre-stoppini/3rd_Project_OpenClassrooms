@@ -47,7 +47,9 @@ public class VerifCodeManuel {
         } while (runCode == true);
     }
 
-
+    /*
+     @param i prend pour paramètre i de la boucle ci dessus.
+     */
     public void tryAndCatchVCM(int i){
         Scanner sc = new Scanner(System.in);
         System.out.println("Vous devez cracker un code long de " + "4" + " caractères.\nNombre d'essais : " + i + "/" + nombreEssais + ".");
@@ -58,7 +60,6 @@ public class VerifCodeManuel {
     * Travailler là-dessus. C'est pas encore bien au point...
     * Cependant, le but est de faire en sorte que l'utilisateur ne puisse pas rentrer n'importe quoi.
     * Il ne doit pas pouvoir rentrer de non-digit ou alors entrer un autre nombre d'input que demandé.
-    @param i prend pour paramètre i de la boucle ci dessus.
      */
     public void tryAndCatch() {
 

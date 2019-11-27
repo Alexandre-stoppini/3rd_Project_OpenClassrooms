@@ -19,19 +19,21 @@ public class GenerationCodeManuel {
                     "\nEntrer votre combinaison : ");
             codeManuel = sc.nextLine();
             TryAndCatch();
-        }while(tryCatch==true);
+        } while (tryCatch == true);
 
 
     }
 
-    public void TryAndCatch(){
-        if (codeManuel.length() != Integer.parseInt(nombreEntree) ) {
+    /*
+     * Fonctionnalité permettant de vérifier si user rentre bien ce qui lui est demandé.
+     */
+    public void TryAndCatch() {
+        if (codeManuel.length() != Integer.parseInt(nombreEntree) || codeManuel.matches("[^0-9]")) {
             System.out.println("Erreur de contenu. Veuillez effectuer une nouvelle saisie.");
             tryCatch = true;
-        }else if (codeManuel.matches("[^0-9]")) {
-            System.out.println("Erreur de contenu. Veuillez effectuer une nouvelle saisie.");
-            tryCatch = true;
-        }else{tryCatch=false;}
+        } else {
+            tryCatch = false;
+        }
     }
 
     public String getCodeManuel() {
