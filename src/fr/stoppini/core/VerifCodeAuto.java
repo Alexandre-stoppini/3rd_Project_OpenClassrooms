@@ -2,20 +2,34 @@ package fr.stoppini.core;
 
 
 import fr.stoppini.get_prop.SimiliGetPropValues;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class VerifCodeAuto {
 
+    /*
+    Série de variable inhérente à la recherche du code
+     */
     private List<Integer> prop = new ArrayList<Integer>();
     private List<Integer> intervalleMin = new ArrayList<>();
     private List<Integer> intervalleMax = new ArrayList<>();
 
+    /*
+    Variable servant à rendre à user ce que l'ordi fait. Se faisant, il peut "dialoguer" avec ce dernier.
+     */
     private List<String> userFeedback = new ArrayList<String>();
 
+    /*
+    Donne le code sous format String
+     */
     GenerationCodeManuel generationCodeManuel = new GenerationCodeManuel();
     private String code = generationCodeManuel.getCodeManuel();
 
+
+    /*
+    Donne le nombre d'essais et la longueur du code sous format int. De base ils sont en String
+     */
     SimiliGetPropValues similiGetPropValues = new SimiliGetPropValues();
     private int nombreEssais = Integer.parseInt(similiGetPropValues.getNombreEssais());
     private int codeLength = Integer.parseInt(similiGetPropValues.getNombreEntree());
@@ -30,28 +44,49 @@ public class VerifCodeAuto {
 
         System.out.println("nombreEssais : " + nombreEssais);
         System.out.println("code : " + code);
-        for (int i = 0; i <codeLength;i++) {
+        init();
+        System.out.println(prop);
+        verifCode();
+
+    }
+
+    /*
+    Fonction permettant de créer une proposition initiale pour le code à déchiffrer.
+     */
+    public void init() {
+        for (int i = 0; i < codeLength; i++) {
             intervalleMin.add(i, 0);
-            intervalleMax.add(i,10);
+            intervalleMax.add(i, 10);
             int iMin = intervalleMin.get(i);
             int iMax = intervalleMax.get(i);
-            prop.add((iMax-iMin)/2+iMin);
-
-
-            Character c = code.charAt(i);
-            Integer pr = prop.get(i);
-            System.out.println(pr);
+            prop.add((iMax - iMin) / 2 + iMin);
         }
     }
-    /*public void createI_Min(int i){
-        iMin.add(i,0);
+
+    /*
+    Fonction permettant de vérifier la proposition en la comparant au code.
+    Suite à cela, attribue de nouvelles valeurs avec la formule suivante : (iMax-iMin)/2+iMin
+     */
+    public void verifCode() {
+        for (int i = 0; i < codeLength; i++) {
+            Integer pr = prop.get(i);
+            Character c = code.charAt(i);
+            if (pr.equals(c)){
+                System.out.println("Valeur pr : " +pr + " Valeur c : "+ c);
+                System.out.println("=");
+            }else if (pr.compareTo(Integer.valueOf(c))>0){
+                System.out.println("Valeur pr : " +pr + " Valeur c : "+ c);
+                System.out.println("-");
+            }else if (pr.compareTo(Integer.valueOf(c))<0){
+                System.out.println("Valeur pr : " +pr + " Valeur c : "+ c);
+                System.out.println("+");
+            }
+        }
+    }
+
+    public void retourUser() {
 
     }
-    public void createI_Max(int i){
-        iMax.add(i,10);
-    }
-    public void createProp(int i){
-        //prop.add(i,(iMax-iMin)/2+iMin);
-    }*/
+
 }
 
