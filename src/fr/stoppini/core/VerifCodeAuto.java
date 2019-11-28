@@ -46,8 +46,9 @@ public class VerifCodeAuto {
         System.out.println("code : " + code);
         init();
         System.out.println(prop);
+        // for (int i = 0; i < nombreEssais; i++) {
         verifCode();
-
+        //}
     }
 
     /*
@@ -66,19 +67,21 @@ public class VerifCodeAuto {
     /*
     Fonction permettant de vérifier la proposition en la comparant au code.
     Suite à cela, attribue de nouvelles valeurs avec la formule suivante : (iMax-iMin)/2+iMin
+    @param c : le "-48" permet de faire en sorte que la valeur qui sort de ce résulat soit
+                bien égale à la valeur voulu. (sinon le string "0" vaut 48 une fois convertit)
      */
     public void verifCode() {
         for (int i = 0; i < codeLength; i++) {
             Integer pr = prop.get(i);
-            Character c = code.charAt(i);
-            if (pr.equals(c)){
-                System.out.println("Valeur pr : " +pr + " Valeur c : "+ c);
+            int c = (code.codePointAt(i)) - 48; //
+            if (pr == c) {
+                System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
                 System.out.println("=");
-            }else if (pr.compareTo(Integer.valueOf(c))>0){
-                System.out.println("Valeur pr : " +pr + " Valeur c : "+ c);
+            } else if (pr < c) {
+                System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
                 System.out.println("-");
-            }else if (pr.compareTo(Integer.valueOf(c))<0){
-                System.out.println("Valeur pr : " +pr + " Valeur c : "+ c);
+            } else if (pr > c) {
+                System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
                 System.out.println("+");
             }
         }
