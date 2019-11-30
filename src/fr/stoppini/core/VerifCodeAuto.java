@@ -5,6 +5,7 @@ import fr.stoppini.get_prop.SimiliGetPropValues;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class VerifCodeAuto {
 
@@ -14,11 +15,6 @@ public class VerifCodeAuto {
     private List<Integer> prop = new ArrayList<Integer>();
     private List<Integer> intervalleMin = new ArrayList<>();
     private List<Integer> intervalleMax = new ArrayList<>();
-
-    /*
-    Variable servant à rendre à user ce que l'ordi fait. Se faisant, il peut "dialoguer" avec ce dernier.
-     */
-    private List<String> userFeedback = new ArrayList<String>();
 
     /*
     Donne le code sous format String
@@ -35,6 +31,11 @@ public class VerifCodeAuto {
     private int codeLength = Integer.parseInt(similiGetPropValues.getNombreEntree());
 
     /*
+   Variable servant à rendre à user ce que l'ordi fait. Se faisant, il peut "dialoguer" avec ce dernier.
+    */
+    private List<String> userFeedback = new ArrayList<String>();
+
+    /*
     Travailler la dessus, pour le moment, ca renvoie bien une valeur égale à 5 pour chaque instance.
     Il faut essayer de faire les conditions en boucle de rendre tout ça propre.
     Bon courage ;p
@@ -45,10 +46,11 @@ public class VerifCodeAuto {
         System.out.println("nombreEssais : " + nombreEssais);
         System.out.println("code : " + code);
         init();
-        System.out.println(prop);
-        // for (int i = 0; i < nombreEssais; i++) {
-        verifCode();
-        //}
+        System.out.println("prop : " + prop);
+        for (int i = 0; i < nombreEssais; i++) {
+            verifCode();
+            retourUser();
+        }
     }
 
     /*
@@ -61,6 +63,7 @@ public class VerifCodeAuto {
             int iMin = intervalleMin.get(i);
             int iMax = intervalleMax.get(i);
             prop.add((iMax - iMin) / 2 + iMin);
+            userFeedback.add("");
         }
     }
 
@@ -75,20 +78,46 @@ public class VerifCodeAuto {
             Integer pr = prop.get(i);
             int c = (code.codePointAt(i)) - 48; //
             if (pr == c) {
-                System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
-                System.out.println("=");
+                //System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
+                //System.out.println("=");
+                userFeedback.set(i, "=");
             } else if (pr < c) {
-                System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
-                System.out.println("-");
+                //System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
+                //System.out.println("-");
+                intervalleMin.set(i, pr--);
+                pr = (intervalleMax.get(i) - intervalleMin.get(i)) / 2 + intervalleMin.get(i);
+                prop.set(i, pr);
+                userFeedback.set(i, "-");
             } else if (pr > c) {
-                System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
-                System.out.println("+");
+                //System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
+                //System.out.println("+");
+                intervalleMax.set(i, pr++);
+                pr = (intervalleMax.get(i) - intervalleMin.get(i)) / 2 + intervalleMin.get(i);
+                prop.set(i, pr);
+                userFeedback.set(i, "+");
             }
         }
     }
 
     public void retourUser() {
-
+        Scanner sc = new Scanner(System.in);
+        boolean condition = false;
+        do {
+            System.out.println("Voici ce qu'a trouvé la machine comme proposition pour votre code " + prop + "(pour rappel votre code est : " + code + " )." +
+                    "\nQu'en pensez vous ? (répondez par +,- ou = en fonction de la réponse.");
+            String retour = sc.nextLine();
+            for (int i = 0; i < codeLength; i++) {
+                String conditionA = userFeedback.get(i);
+                String conditionB = Character.toString(retour.charAt(i));
+                if (conditionA.equals(conditionB)) {
+                    condition = true;
+                } else {
+                    condition = false;
+                    System.out.println("Êtes-vous sûr du résultat ?");
+                    break;
+                }
+            }
+        } while (condition == false);
     }
 
 }
