@@ -15,6 +15,7 @@ public class VerifCodeAuto {
     private List<Integer> prop = new ArrayList<Integer>();
     private List<Integer> intervalleMin = new ArrayList<>();
     private List<Integer> intervalleMax = new ArrayList<>();
+    private List<Integer> codeList = new ArrayList<>();
 
     /*
     Donne le code sous format String
@@ -35,6 +36,8 @@ public class VerifCodeAuto {
     */
     private List<String> userFeedback = new ArrayList<String>();
 
+    private boolean fin = false;
+
     /*
     Travailler la dessus, pour le moment, ca renvoie bien une valeur égale à 5 pour chaque instance.
     Il faut essayer de faire les conditions en boucle de rendre tout ça propre.
@@ -43,14 +46,17 @@ public class VerifCodeAuto {
 
     public VerifCodeAuto() {
 
-        System.out.println("nombreEssais : " + nombreEssais);
-        System.out.println("code : " + code);
         init();
-        System.out.println("prop : " + prop);
-        for (int i = 0; i < nombreEssais; i++) {
-            verifCode();
-            retourUser();
-        }
+        retourUser();
+        if(fin == false) {
+            for (int j = 0; j < nombreEssais; j++) {
+                verifCode();
+                retourUser();
+                if (fin == true) {
+                    break;
+                }
+            }
+        }else {}
     }
 
     /*
@@ -58,12 +64,22 @@ public class VerifCodeAuto {
      */
     public void init() {
         for (int i = 0; i < codeLength; i++) {
+            userFeedback.add("");
             intervalleMin.add(i, 0);
             intervalleMax.add(i, 10);
             int iMin = intervalleMin.get(i);
             int iMax = intervalleMax.get(i);
             prop.add((iMax - iMin) / 2 + iMin);
-            userFeedback.add("");
+            Integer pr = prop.get(i);
+            int c = (code.codePointAt(i)) - 48;
+            if (pr == c) {
+                preRetourUser(pr, c, i);
+            } else if (pr < c) {
+                preRetourUser(pr, c, i);
+            } else if (pr > c) {
+                preRetourUser(pr, c, i);
+            }
+            endGame(c, i);
         }
     }
 
@@ -76,26 +92,55 @@ public class VerifCodeAuto {
     public void verifCode() {
         for (int i = 0; i < codeLength; i++) {
             Integer pr = prop.get(i);
-            int c = (code.codePointAt(i)) - 48; //
+            int c = (code.codePointAt(i)) - 48;
             if (pr == c) {
-                //System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
-                //System.out.println("=");
-                userFeedback.set(i, "=");
+                preRetourUser(pr, c, i);
             } else if (pr < c) {
-                //System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
-                //System.out.println("-");
                 intervalleMin.set(i, pr--);
                 pr = (intervalleMax.get(i) - intervalleMin.get(i)) / 2 + intervalleMin.get(i);
                 prop.set(i, pr);
-                userFeedback.set(i, "-");
+                preRetourUser(pr, c, i);
             } else if (pr > c) {
-                //System.out.println("Valeur pr : " + pr + " Valeur c : " + c);
-                //System.out.println("+");
                 intervalleMax.set(i, pr++);
                 pr = (intervalleMax.get(i) - intervalleMin.get(i)) / 2 + intervalleMin.get(i);
                 prop.set(i, pr);
-                userFeedback.set(i, "+");
+                preRetourUser(pr, c, i);
             }
+
+            endGame(c, i);
+        }
+
+    }
+
+
+    /*
+
+     */
+    public void endGame(int c, int i) {
+        codeList.add(i, c);
+        System.out.println("Voici codeList : " + codeList + " et voici prop : " + prop);
+        if (codeList.equals(prop)) {
+            System.out.println("Cest la fin");
+            fin = true;
+        }
+        if (i == 3) {
+            codeList.clear();
+        }
+    }
+
+    /*
+    Attribue à userFeedback un signe en focntion de la valeur du code en fin de boucle
+    @param pr : la proposition
+    @param c : le code
+    @param i : l'itération de la boucle
+     */
+    public void preRetourUser(int pr, int c, int i) {
+        if (pr == c) {
+            userFeedback.set(i, "=");
+        } else if (pr < c) {
+            userFeedback.set(i, "-");
+        } else if (pr > c) {
+            userFeedback.set(i, "+");
         }
     }
 
@@ -103,22 +148,28 @@ public class VerifCodeAuto {
         Scanner sc = new Scanner(System.in);
         boolean condition = false;
         do {
-            System.out.println("Voici ce qu'a trouvé la machine comme proposition pour votre code " + prop + "(pour rappel votre code est : " + code + " )." +
-                    "\nQu'en pensez vous ? (répondez par +,- ou = en fonction de la réponse.");
+            System.out.println("Voici ce qu'a trouvé la machine comme proposition pour votre code " + prop + " (pour rappel votre code est : " + code + " )." +
+                    "\nQu'en pensez vous ?" +
+                    "\nSi la valeur donnée est plus importante que celle du code, répondez par +" +
+                    "\nSi elle est inférieure, répondez par -" +
+                    "\nSi enfin elle est égale, répondez par =");
             String retour = sc.nextLine();
             for (int i = 0; i < codeLength; i++) {
                 String conditionA = userFeedback.get(i);
                 String conditionB = Character.toString(retour.charAt(i));
-                if (conditionA.equals(conditionB)) {
+                if (retour.length() != userFeedback.size()) {
+                    System.out.println("\nÊtes-vous sûr du résultat ?\n");
+                    condition = false;
+                    break;
+                } else if (conditionA.equals(conditionB)) {
                     condition = true;
                 } else {
                     condition = false;
-                    System.out.println("Êtes-vous sûr du résultat ?");
+                    System.out.println("\nÊtes-vous sûr du résultat ?\n");
                     break;
                 }
             }
         } while (condition == false);
     }
-
 }
 
