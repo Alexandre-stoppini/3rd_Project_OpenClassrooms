@@ -7,11 +7,18 @@ public class ChoixMode {
     private String Choix;
     private boolean Condition = false;
 
+
+
+
     public ChoixMode() {
         Scanner sc = new Scanner(System.in);
-        welcome(sc);
-        yourChoice(sc);
+
+            welcome(sc);
+            yourChoice(sc);
+
     }
+
+
 
     public void welcome(Scanner sc) {
 
