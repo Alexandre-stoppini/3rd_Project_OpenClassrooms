@@ -36,13 +36,11 @@ public class VerifCodeAuto {
     */
     private List<String> userFeedback = new ArrayList<String>();
 
+    /*
+    Valeur permettant de dire si oui ou non le programme doit continuer.
+     */
     private boolean fin = false;
 
-    /*
-    Travailler la dessus, pour le moment, ca renvoie bien une valeur égale à 5 pour chaque instance.
-    Il faut essayer de faire les conditions en boucle de rendre tout ça propre.
-    Bon courage ;p
-     */
 
     public VerifCodeAuto() {
 
@@ -52,6 +50,9 @@ public class VerifCodeAuto {
                 verifCode(j);
                 if (fin == true) {
                     break;
+                } else if (j == nombreEssais - 1) {
+                    System.out.println("\n--------------------------------------------\n" +
+                            "L'ordinateur n'a pas pu cracker votre code.\nFélicitations !!! ");
                 }
             }
         } else {
@@ -111,14 +112,16 @@ public class VerifCodeAuto {
             endGame(c, i);
         }
         retourUser();
-        if (fin == true){
-            System.out.println("L'ordinateur a réussi à craquer le code en " + j++ + " coups.");
+        if (fin == true) {
+            System.out.println("L'ordinateur a réussi à craquer le code en " + (j = j + 1) + " coups.");
         }
     }
 
 
     /*
-
+        permet de verifier si le code est égal ou non à la proposition. si oui, fin du programme
+       @param c : donne le code
+       @param i : donne l'endroit où l'itération en est
      */
     public void endGame(int c, int i) {
         codeList.add(i, c);

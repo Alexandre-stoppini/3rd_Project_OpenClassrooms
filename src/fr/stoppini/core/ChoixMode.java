@@ -19,7 +19,6 @@ public class ChoixMode {
                 + "\n \n 1 - Défenseur\n 2 - Challenger\n 3 - Duel ");
         Choix = sc.nextLine();
 
-        System.out.println(Choix);
     }
 
     public void yourChoice(Scanner sc) {

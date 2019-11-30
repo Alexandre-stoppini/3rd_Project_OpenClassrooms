@@ -19,7 +19,6 @@ public class VerifCodeManuel {
     public VerifCodeManuel() {
 
         GenerationCodeAuto generationAuto = new GenerationCodeAuto();
-        System.out.println(generationAuto.getCode());
         code = generationAuto.getCode();
         initVerifCodeManuel();
 
