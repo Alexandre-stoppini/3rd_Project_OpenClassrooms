@@ -47,16 +47,16 @@ public class VerifCodeAuto {
     public VerifCodeAuto() {
 
         init();
-        retourUser();
-        if(fin == false) {
-            for (int j = 0; j < nombreEssais; j++) {
-                verifCode();
-                retourUser();
+        if (fin == false) {
+            for (int j = 1; j < nombreEssais; j++) {
+                verifCode(j);
                 if (fin == true) {
                     break;
                 }
             }
-        }else {}
+        } else {
+            System.out.println("L'ordinateur à gagné du premier coup !");
+        }
     }
 
     /*
@@ -81,6 +81,7 @@ public class VerifCodeAuto {
             }
             endGame(c, i);
         }
+        retourUser();
     }
 
     /*
@@ -89,7 +90,7 @@ public class VerifCodeAuto {
     @param c : le "-48" permet de faire en sorte que la valeur qui sort de ce résulat soit
                 bien égale à la valeur voulu. (sinon le string "0" vaut 48 une fois convertit)
      */
-    public void verifCode() {
+    public void verifCode(int j) {
         for (int i = 0; i < codeLength; i++) {
             Integer pr = prop.get(i);
             int c = (code.codePointAt(i)) - 48;
@@ -109,7 +110,10 @@ public class VerifCodeAuto {
 
             endGame(c, i);
         }
-
+        retourUser();
+        if (fin == true){
+            System.out.println("L'ordinateur a réussi à craquer le code en " + j++ + " coups.");
+        }
     }
 
 
@@ -118,9 +122,7 @@ public class VerifCodeAuto {
      */
     public void endGame(int c, int i) {
         codeList.add(i, c);
-        System.out.println("Voici codeList : " + codeList + " et voici prop : " + prop);
         if (codeList.equals(prop)) {
-            System.out.println("Cest la fin");
             fin = true;
         }
         if (i == 3) {
