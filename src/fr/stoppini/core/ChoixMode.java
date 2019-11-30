@@ -2,30 +2,22 @@ package fr.stoppini.core;
 
 import java.util.Scanner;
 
-
 public class ChoixMode {
     private String Choix;
     private boolean Condition = false;
 
-
-
-
     public ChoixMode() {
         Scanner sc = new Scanner(System.in);
 
-            welcome(sc);
-            yourChoice(sc);
+        welcome(sc);
+        yourChoice(sc);
 
     }
 
-
-
     public void welcome(Scanner sc) {
-
         System.out.println("*************** Bienvenue *************** \n \n Veuillez sélectionner un mode de jeu : "
                 + "\n \n 1 - Défenseur\n 2 - Challenger\n 3 - Duel ");
         Choix = sc.nextLine();
-
     }
 
     public void yourChoice(Scanner sc) {
@@ -54,7 +46,6 @@ public class ChoixMode {
             }
         }
     }
-
 
 //	********************** Getter **********************
 

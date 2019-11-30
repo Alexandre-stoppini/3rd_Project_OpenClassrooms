@@ -30,6 +30,7 @@ public class VerifCodeAuto {
     SimiliGetPropValues similiGetPropValues = new SimiliGetPropValues();
     private int nombreEssais = Integer.parseInt(similiGetPropValues.getNombreEssais());
     private int codeLength = Integer.parseInt(similiGetPropValues.getNombreEntree());
+    private String modeDev = similiGetPropValues.getModeDev();
 
     /*
    Variable servant à rendre à user ce que l'ordi fait. Se faisant, il peut "dialoguer" avec ce dernier.
@@ -44,6 +45,7 @@ public class VerifCodeAuto {
 
     public VerifCodeAuto() {
 
+        devMode();
         init();
         if (fin == false) {
             for (int j = 1; j < nombreEssais; j++) {
@@ -57,6 +59,20 @@ public class VerifCodeAuto {
             }
         } else {
             System.out.println("L'ordinateur à gagné du premier coup !");
+        }
+    }
+
+    /*
+    Définit si oui ou non le code sera visible en début de partie ou non.
+     */
+    public void devMode() {
+        if (modeDev.equals("true")) {
+            System.out.println("Le code que à déchiffrer est : " + code
+                    + "\nBon test!" +
+                    "\n--------------------------------------------------------------------");
+        } else {
+            System.out.println("Bon jeu !" +
+                    "\n--------------------------------------------------------------------");
         }
     }
 
@@ -113,7 +129,9 @@ public class VerifCodeAuto {
         }
         retourUser();
         if (fin == true) {
-            System.out.println("L'ordinateur a réussi à craquer le code en " + (j = j + 1) + " coups.");
+            System.out.println("\n--------------------------------------------------------------------" +
+                    "L'ordinateur a réussi à craquer le code en " + (j = j + 1) + " coups." +
+                    "\n--------------------------------------------------------------------");
         }
     }
 
@@ -155,22 +173,28 @@ public class VerifCodeAuto {
         do {
             System.out.println("Voici ce qu'a trouvé la machine comme proposition pour votre code " + prop + " (pour rappel votre code est : " + code + " )." +
                     "\nQu'en pensez vous ?" +
+                    "\n--------------------------------------------------------------------" +
                     "\nSi la valeur donnée est plus importante que celle du code, répondez par +" +
                     "\nSi elle est inférieure, répondez par -" +
-                    "\nSi enfin elle est égale, répondez par =");
+                    "\nSi enfin elle est égale, répondez par =" +
+                    "\n--------------------------------------------------------------------");
             String retour = sc.nextLine();
             for (int i = 0; i < codeLength; i++) {
                 String conditionA = userFeedback.get(i);
                 String conditionB = Character.toString(retour.charAt(i));
                 if (retour.length() != userFeedback.size()) {
-                    System.out.println("\nÊtes-vous sûr du résultat ?\n");
+                    System.out.println("--------------------------------------------------------------------" +
+                            "\nÊtes-vous sûr du résultat ?" +
+                            "\n--------------------------------------------------------------------");
                     condition = false;
                     break;
                 } else if (conditionA.equals(conditionB)) {
                     condition = true;
                 } else {
                     condition = false;
-                    System.out.println("\nÊtes-vous sûr du résultat ?\n");
+                    System.out.println("\n--------------------------------------------------------------------" +
+                            "\nÊtes-vous sûr du résultat ?" +
+                            "\n--------------------------------------------------------------------");
                     break;
                 }
             }

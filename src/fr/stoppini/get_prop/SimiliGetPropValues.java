@@ -1,7 +1,7 @@
 package fr.stoppini.get_prop;
 
 public class SimiliGetPropValues {
-    private String modeDev = "false";
+    private String modeDev = "true";
     private String nombreEssais = "4";
     private String nombreEntree = "4" ;
 public String SimiliGetPropValues(){

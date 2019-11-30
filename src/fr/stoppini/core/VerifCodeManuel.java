@@ -63,10 +63,14 @@ public class VerifCodeManuel {
     public void tryAndCatch() {
 
        if (prop.length() != code.length() ) {
-            System.out.println("Erreur de contenu. Veuillez effectuer une nouvelle saisie.");
+            System.out.println("\n--------------------------------------------------------------------" +
+                    "Erreur de contenu. Veuillez effectuer une nouvelle saisie." +
+                    "\n--------------------------------------------------------------------");
             tryCatch = true;
         }else if (prop.matches("[^0-9]")) {
-            System.out.println("Erreur de contenu. Veuillez effectuer une nouvelle saisie.");
+            System.out.println("\n--------------------------------------------------------------------" +
+                    "Erreur de contenu. Veuillez effectuer une nouvelle saisie." +
+                    "\n--------------------------------------------------------------------");
             tryCatch = true;
         }
     }
@@ -111,11 +115,12 @@ public class VerifCodeManuel {
             } else {
                 //System.out.println(false);
                 System.out.println("Mauvaise combinaison :/");
-                System.out.println("Voici le rendu de votre proposition : " + userFeedback);
+                System.out.println("Voici le rendu de votre proposition : " + userFeedback
+                +"\n--------------------------------------------------------------------");
                 break;
             }
             if (i == userFeedback.size() - 1) {
-                System.out.println("Gagné !!!\nLe code était bien " + code);
+                System.out.println("Gagné !!!\nLe code était bien " + code+"\n--------------------------------------------------------------------");
                 runCode = false;
             }
         }
@@ -123,7 +128,8 @@ public class VerifCodeManuel {
 
     public void lastWord(int i){
         if (i==nombreEssais-1){
-            System.out.println("Ceci est votre dernier essai.");
+            System.out.println("Ceci est votre dernier essai." +
+                    "\n--------------------------------------------------------------------");
         }
     }
 }
